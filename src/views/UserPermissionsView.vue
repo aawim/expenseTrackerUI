@@ -21,6 +21,7 @@ onMounted(async () => {
 
 
 const submitPermissions = async () => {
+
     await store.updateUserPermissions(userId, store.userPermissions.permissions)
     await store.fetchUserPermissions(userId) // Refresh permissions
 }

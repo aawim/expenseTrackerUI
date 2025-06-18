@@ -83,7 +83,7 @@ onMounted(() => {
           <template v-if="authStore.isAuthenticated">
             <li>
 
-              <template v-if="authStore.hasPermission('view_user') || authStore.hasRole('Admin')">
+              <template v-if="authStore.hasPermission('dashboard') || authStore.hasRole('Admin')">
                 <router-link class="md:p-4 py-2 block hover:text-purple-400 text-purple-500"
                   to="/home">Dashboard</router-link>
               </template>

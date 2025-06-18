@@ -33,6 +33,7 @@ export const useUserHasPermissionStore = defineStore('userHasPermission', {
     },
 
     async updateUserPermissions(userId, permissions) {
+
       try {
         await axios.patch(`/user-permissions/${userId}`, {
           permissions
