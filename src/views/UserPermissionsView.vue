@@ -5,7 +5,7 @@ import { useUserHasPermissionStore } from '@/stores/userHasPermissionStore'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import { useAuthStore } from '@/stores/authStore'
 const authStore = useAuthStore()
-
+const showTooltip = ref(false)
 const route = useRoute()
 const userId = route.params.id
 const store = useUserHasPermissionStore()
@@ -24,6 +24,12 @@ const submitPermissions = async () => {
 
     await store.updateUserPermissions(userId, store.userPermissions.permissions)
     await store.fetchUserPermissions(userId) // Refresh permissions
+
+    showTooltip.value = true
+
+    setTimeout(() => {
+        showTooltip.value = false
+    }, 2500)
 }
 
 
@@ -62,6 +68,20 @@ const submitPermissions = async () => {
                     </div>
                 </div>
             </form>
+
+            <!-- <VPopover v-model:shown="showTooltip" placement="top">
+                <template #default>
+                    <span class="text-green-600 font-semibold">Update successful!</span>
+                </template>
+</VPopover> -->
+
+            <VPopover v-if="showTooltip" placement="top" :triggers="[]" :shown="true">
+                <template #default>
+                    <div class="bg-green-500 text-white px-4 py-2 rounded shadow">
+                        ✅ Update successful!
+                    </div>
+                </template>
+            </VPopover>
         </div>
     </DefaultLayout>
 </template>

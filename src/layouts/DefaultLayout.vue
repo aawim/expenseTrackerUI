@@ -29,4 +29,6 @@ import HeaderArea from '@/components/HeaderArea.vue'
     </div>
   </div>
   <!-- ===== Page Wrapper End ===== -->
+   
 </template>
+

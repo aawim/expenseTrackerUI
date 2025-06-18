@@ -108,6 +108,8 @@ const categorySummary = computed(() => {
     }
 })
 
+
+
 </script>
 
 <template>
