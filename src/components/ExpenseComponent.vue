@@ -118,20 +118,17 @@ const categorySummary = computed(() => {
 
 <template>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4">
-
-
-
-
-        
- 
-
         <form @submit.prevent="applyFilters" class="mb-4 flex flex-wrap gap-3">
-            <input type="date" v-model="filters.from_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-            <input type="date" v-model="filters.to_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-            <input type="number" v-model.number="filters.min_amount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" min="0"
-                step="0.01" />
-            <input type="number" v-model.number="filters.max_amount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" min="0"
-                step="0.01" />
+            <input type="date" v-model="filters.from_date"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+            <input type="date" v-model="filters.to_date"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+            <input type="number" v-model.number="filters.min_amount"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                min="0" step="0.01" />
+            <input type="number" v-model.number="filters.max_amount"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                min="0" step="0.01" />
             <button type="submit" class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700">Apply</button>
             <button type="button" @click="clearFilters"
                 class="bg-gray-300 text-gray-800 px-4 py-1 rounded hover:bg-gray-400">Clear</button>
@@ -142,7 +139,7 @@ const categorySummary = computed(() => {
         </button>
 
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr class="bg-gray-100">
                     <th class="px-3 py-4 w-25">Date</th>
                     <th class="px-3 py-1 w-10">Amount</th>
@@ -166,7 +163,8 @@ const categorySummary = computed(() => {
                     <td class="px-3 py-1">{{ item.payment_method?.name || '-' }}</td>
                     <td class="px-3 py-1">{{ item.description || '-' }}</td>
                     <td class="px-3 py-1 space-x-2  text-center">
-                                <button @click="openEdit(item)"
+                        
+                        <button @click="openEdit(item)"
                             class="inline-flex items-center justify-center w-8 h-8 mr-2 text-green-100 transition-colors duration-150 bg-green-600 rounded-full focus:shadow-outline hover:bg-green-700"
                             title="Edit">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
@@ -175,6 +173,7 @@ const categorySummary = computed(() => {
                                     d="M11 5h2m-1 0v2m-7.88 6.71a4 4 0 010-5.66L12 3l5.88 5.88a4 4 0 010 5.66L12 21l-8.88-8.88z" />
                             </svg>
                         </button>
+
                         <button @click="deleteExpense(item.id)"
                             class="inline-flex items-center justify-center w-8 h-8 mr-2 text-pink-100 transition-colors duration-150 bg-pink-700 rounded-full focus:shadow-outline hover:bg-pink-800">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
@@ -183,18 +182,6 @@ const categorySummary = computed(() => {
                                     d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
                             </svg>
                         </button>
-<!-- 
-                        <button @click="viewExpense(item)"
-                            class="inline-flex items-center justify-center w-8 h-8 mr-2 text-blue-100 transition-colors duration-150 bg-blue-600 rounded-full focus:shadow-outline hover:bg-blue-700"
-                            title="View">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M2.458 12C3.732 7.943 7.523 5 12 5s8.268 2.943 9.542 7c-1.274 4.057-5.065 7-9.542 7s-8.268-2.943-9.542-7z" />
-                            </svg>
-                        </button> -->
 
                         <button @click="showSummary(item)"
                             class="inline-flex items-center justify-center w-8 h-8 mr-2 text-purple-100 transition-colors duration-150 bg-purple-600 rounded-full focus:shadow-outline hover:bg-purple-700"
@@ -229,7 +216,7 @@ const categorySummary = computed(() => {
                 @click="fetchExpenses(pagination.current_page - 1)"
                 class="px-3 py-1 border rounded disabled:opacity-50">Prev</button>
             <span class="px-3 py-1 border rounded">Page {{ pagination.current_page }} of {{ pagination.last_page
-            }}</span>
+                }}</span>
             <button :disabled="pagination.current_page >= pagination.last_page || loading"
                 @click="fetchExpenses(pagination.current_page + 1)"
                 class="px-3 py-1 border rounded disabled:opacity-50">Next</button>

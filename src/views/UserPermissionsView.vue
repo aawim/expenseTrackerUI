@@ -1,3 +1,33 @@
+<script setup>
+import { ref, onMounted, computed } from 'vue'
+import { useRoute } from 'vue-router'
+import { useUserHasPermissionStore } from '@/stores/userHasPermissionStore'
+import DefaultLayout from '@/layouts/DefaultLayout.vue'
+import { useAuthStore } from '@/stores/authStore'
+const authStore = useAuthStore()
+
+const route = useRoute()
+const userId = route.params.id
+const store = useUserHasPermissionStore()
+const selectedPermissions = ref([])
+
+onMounted(async () => {
+    await store.fetchAllPermissions()
+    await store.fetchUserPermissions(userId)
+    selectedPermissions.value = Array.isArray(store.userPermissions)
+        ? [...store.userPermissions]
+        : []
+})
+
+
+const submitPermissions = async () => {
+    await store.updateUserPermissions(userId, store.userPermissions.permissions)
+    await store.fetchUserPermissions(userId) // Refresh permissions
+}
+
+
+</script>
+
 <template>
     <DefaultLayout>
         <div v-if="store.loading">Loading...</div>
@@ -34,36 +64,3 @@
         </div>
     </DefaultLayout>
 </template>
-
-<script setup>
-
-
-
-import { ref, onMounted, computed } from 'vue'
-import { useRoute } from 'vue-router'
-import { useUserHasPermissionStore } from '@/stores/userHasPermissionStore'
-import DefaultLayout from '@/layouts/DefaultLayout.vue'
-import { useAuthStore } from '@/stores/authStore'
-const authStore = useAuthStore()
-
-const route = useRoute()
-const userId = route.params.id
-const store = useUserHasPermissionStore()
-const selectedPermissions = ref([])
-
-onMounted(async () => {
-    await store.fetchAllPermissions()
-    await store.fetchUserPermissions(userId)
-    selectedPermissions.value = Array.isArray(store.userPermissions)
-        ? [...store.userPermissions]
-        : []
-})
-
-
-const submitPermissions = async () => {
-    await store.updateUserPermissions(userId, store.userPermissions.permissions)
-    await store.fetchUserPermissions(userId) // Refresh permissions
-}
-
-
-</script>

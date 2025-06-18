@@ -1,7 +1,7 @@
 // src/stores/permissionStore.js
 import { defineStore } from 'pinia'
-import api from '../apiClient'
-import axios from 'axios'
+import api from '@/apiClient'
+
 export const usePermissionStore = defineStore('permission', {
   state: () => ({
     permissions: [],
@@ -11,14 +11,6 @@ export const usePermissionStore = defineStore('permission', {
   }),
 
   actions: {
-
-    // getAuthHeaders() {
-    //   return {
-    //     headers: {
-    //       Authorization: `Bearer ${this.token}`
-    //     }
-    //   }
-    // },
 
 
     async fetchPermissions() {
@@ -57,20 +49,8 @@ export const usePermissionStore = defineStore('permission', {
     },
 
     async deletePermission(id) {
-      // await api.delete(`/permissions/${id}`)
-      // await this.fetchPermissions()
-
-
-            try {
-        this.loading = true
-        const response = await api.delete(`/permissions/${id}`)
-        // this.permissions = response.data
-
-         this.permissions = this.permissions.filter(permissions => permissions.id !== id)
-        await this.fetchPermissions()
-      } catch (error) {
-        console.error('Error creating permission:', error.response?.data?.message || error.message)
-      }
+      await api.delete(`/permissions/${id}`)
+      await this.fetchPermissions()
     }
   }
 })

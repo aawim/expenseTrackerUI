@@ -23,12 +23,15 @@
         <div  class="w-full flex-1 bg-white p-4 md:p-6 2xl:p-4 dark:border-strokedark dark:bg-boxdark dark:text-white">
           <slot name="default"></slot>
         </div>
-
-
-
       </main>
       <!-- ===== Main Content End ===== -->
     </div>
   </div>
   <!-- ===== Page Wrapper End ===== -->
+
+
+
+
+
+   
 </template>

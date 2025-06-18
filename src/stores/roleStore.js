@@ -1,17 +1,15 @@
 import { defineStore } from 'pinia'
 import api from '../apiClient'
-import axios from 'axios'
- 
+
 export const useRoleStore = defineStore('role', {
   state: () => ({
     roles: [],
     role: null,
-    token: localStorage.getItem('token') || '', // Retrieve token from localStorage
-    loading: false
+    token: localStorage.getItem('token') || '',
+    loading: false,
   }),
 
   actions: {
-
     async fetchRoles() {
       try {
         this.loading = true
@@ -19,50 +17,53 @@ export const useRoleStore = defineStore('role', {
         this.roles = response.data.data
       } catch (error) {
         console.error('Error fetching roles:', error.response?.data?.message || error.message)
+      } finally {
+        this.loading = false
       }
     },
-
 
     async fetchRole(id) {
       try {
-      //  this.loading = true
         const response = await api.get(`/roles/${id}`)
         this.role = response.data.data
-     
       } catch (error) {
-        console.error('Error creating event:', error.response?.data?.message || error.message)
+        console.error('Error fetching role:', error.response?.data?.message || error.message)
       }
     },
 
-    async createRole(eventData) {
+    async createRole(data) {
       try {
-      //  this.loading = true
-        const response = await api.post('/roles', eventData)
-        this.roles = response.data
+        await api.post('/roles', data)
+        await this.fetchRoles()
       } catch (error) {
-        console.error('Error creating event:', error.response?.data?.message || error.message)
+        console.error('Error creating role:', error.response?.data?.message || error.message)
       }
     },
-
-
-    // async updateRole(id, data) {
-    //   await api.put(`/roles/${id}`, data)
-    //   await this.fetchRoles()
-    // },
-
 
     async updateRole(id, data) {
+
+      console.log(data)
       try {
         await api.patch(`/roles/${id}`, data)
-         this.fetchRoles()
+        await this.fetchRoles()
       } catch (error) {
-        console.error('Error updating event:', error.response?.data?.message || error.message)
+        console.error('Error updating role:', error.response?.data?.message || error.message)
       }
     },
 
     async deleteRole(id) {
-      await api.delete(`/roles/${id}`)
-      await this.fetchRoles()
+      try {
+        if (!id) {
+          console.error('Invalid role ID provided:', id)
+          return
+        }
+
+        await api.delete(`/roles/${id.id}`)
+        await this.fetchRoles()
+      } catch (error) {
+        console.error('Error deleting role:', error.response?.data?.message || error.message)
+        throw error
+      }
     }
   }
 })

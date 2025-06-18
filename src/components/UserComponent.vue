@@ -11,25 +11,6 @@ onMounted(() => {
 })
 
 
-
-
-
-// const cancelBooking = async (book) => {
-
-//     console.log(book)
-//   try {
-//     await bookingStore.cancelBooking(book.id);
-//     bookingStore.fetchBookings()
-
-//   } catch (error) {
-//     console.error('Failed to fetch details:', error);
-//   }
-// };
-
-
-
-
-
 </script>
 <template>
     <div class="px-6 py-4 lg:px-8">

@@ -1,9 +1,8 @@
 
 // stores/userStore.js
 import { defineStore } from 'pinia'
-// import api from '@/services/api'
 import axios from 'axios'
-import api from '../apiClient'
+import api from '@/apiClient'
 export const useUserStore = defineStore('user', {
     state: () => ({
         users: [],
@@ -14,21 +13,10 @@ export const useUserStore = defineStore('user', {
 
     actions: {
 
-        // getAuthHeaders() {
-        //     return {
-        //         headers: {
-        //             Authorization: `Bearer ${this.token}`
-        //         }
-        //     }
-        // },
-
-
         async fetchUsers() {
             this.loading = true
             try {
                 const response = await api.get('/users')
-
-               // console.log( response )
                 this.users = response.data.data
             } catch (error) {
                 console.error('Error fetching users:', error)
@@ -59,9 +47,8 @@ export const useUserStore = defineStore('user', {
         },
 
         async updateUser(id, data) {
-          
+          console.log(id, data)
             try {
-           
                 const response = await api.put(`/users/${id}`, data)
                 this.fetchUsers()
                 // return response.data

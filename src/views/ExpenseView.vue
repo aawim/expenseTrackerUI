@@ -4,7 +4,6 @@ import { ref } from 'vue'
 import DefaultLayout from '@/layouts/DefaultLayout.vue'
 import ExpenseComponent from '@/components/ExpenseComponent.vue'
 import ExpenseModal from '@/components/ExpemseModal.vue'
-import ShowExpenseModal from '@/views/ShowExpense.vue'
 import SummaryExpenseModal from '@/views/ExpenseOverView.vue'
 
 const showModal = ref(false)
@@ -64,25 +63,9 @@ function closeSummaryModal() {
       <ExpenseModal v-if="showModal" :isEdit="isEdit" :expense="selectedExpense" @close="closeModal"
         @saved="handleSaved" />
 
-
-
-      <!-- <ShowExpenseModal
-      :expense="selectedExpense"
-      :show="showViewModal"
-      @close="closeViewModal"
-    /> -->
-
       <SummaryExpenseModal :expense="selectedExpense" :show="showSummaryModal" @close="closeSummaryModal" />
 
-
-
     </div>
-
-
-
-
-
-
 
   </DefaultLayout>
 </template>
