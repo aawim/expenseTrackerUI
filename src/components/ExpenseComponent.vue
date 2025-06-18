@@ -163,7 +163,7 @@ const categorySummary = computed(() => {
                     <td class="px-3 py-1">{{ item.payment_method?.name || '-' }}</td>
                     <td class="px-3 py-1">{{ item.description || '-' }}</td>
                     <td class="px-3 py-1 space-x-2  text-center">
-                        
+
                         <button @click="openEdit(item)"
                             class="inline-flex items-center justify-center w-8 h-8 mr-2 text-green-100 transition-colors duration-150 bg-green-600 rounded-full focus:shadow-outline hover:bg-green-700"
                             title="Edit">
@@ -198,9 +198,10 @@ const categorySummary = computed(() => {
                 </tr>
             </tbody>
         </table>
-        <div class="mt-2 mb-4 text-right font-semibold text-lg">
-            Total: {{ totalAmount.toFixed(2) }}
+        <div class="mt-4 mb-6 text-right text-xl font-bold text-gray-800 bg-gray-100 px-4 py-3 rounded shadow-sm pr-25">
+            Total: <span class="text-purple-600">MVR {{ totalAmount.toFixed(2) }}</span>
         </div>
+
 
         <!-- Summary Box -->
         <div v-if="categorySummary" class="mt-4 p-4 bg-purple-100 rounded border border-purple-300">
@@ -216,7 +217,7 @@ const categorySummary = computed(() => {
                 @click="fetchExpenses(pagination.current_page - 1)"
                 class="px-3 py-1 border rounded disabled:opacity-50">Prev</button>
             <span class="px-3 py-1 border rounded">Page {{ pagination.current_page }} of {{ pagination.last_page
-                }}</span>
+            }}</span>
             <button :disabled="pagination.current_page >= pagination.last_page || loading"
                 @click="fetchExpenses(pagination.current_page + 1)"
                 class="px-3 py-1 border rounded disabled:opacity-50">Next</button>

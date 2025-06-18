@@ -10,33 +10,6 @@ const isLoading = ref(false)
 
 const authStore = useAuthStore()
 
-// const handleLogin = async () => {
-//   error.value = ''
-//   isLoading.value = true
-
-
-//   const credentials = ref({
-//     email: "",
-//     password: "",
-//   });
-
-
-//   try {
-//     const credentials = {
-//       email: email.value,
-//       password: password.value,
-
-//     }
-
-//     await authStore.login(credentials)  // Login using the Pinia store action
-//   } catch (error) {
-//     isLoading.value = false
-//     error.value = 'Invalid credentials or something went wrong.'
-
-//     console.log(authStore.error)
-//   }
-// }
-
 const handleLogin = async () => {
   error.value = ''
   isLoading.value = true
@@ -58,13 +31,7 @@ const handleLogin = async () => {
 
 </script>
 
-
-
-
-
-
 <template>
-
 
   <div class="flex  flex-col justify-center px-6 py-12 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -97,15 +64,17 @@ const handleLogin = async () => {
           <button type="submit" :disabled="isLoading"
             class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Login</button>
         </div>
-          <div class="text-sm mt-5 ">
-        <router-link class="font-semibold text-indigo-600 hover:text-indigo-500 " to="/register">Register</router-link>
+        <div class="text-sm mt-5 ">
+          <router-link class="font-semibold text-indigo-600 hover:text-indigo-500 "
+            to="/register">Register</router-link>
         </div>
         <p v-if="error" class="text-red-600 mb-4">{{ error }}</p>
       </form>
       <!-- <p v-if="error.value" class="mt-4 text-red-500">{{ error }}</p> -->
     </div>
-      <router-link class="font-semibold text-indigo-600 hover:text-indigo-500 flex w-full justify-center py-12" to="/">Home</router-link>
+    <router-link class="font-semibold text-indigo-600 hover:text-indigo-500 flex w-full justify-center py-12"
+      to="/">Home</router-link>
   </div>
 
- 
+
 </template>

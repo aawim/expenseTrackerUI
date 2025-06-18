@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '../stores/authStore'
 
 
-
+import HomeView from '../views/HomeView.vue'
 import WelcomeView from '../views/WelcomeView.vue'
 import Login from '../views/Login.vue'
 import RegisterView from '../views/Register.vue'
@@ -21,16 +21,25 @@ const router = createRouter({
     {
       path: '/',
       name: 'welcome',
-      component: WelcomeView,
+      component: HomeView,
     },
-       {
+    {
+      path: '/home',
+      name: 'home',
+      component: WelcomeView,
+      meta: {
+        title: 'Chart Page',
+        requiresAuth: true,
+      }
+    },
+    {
       path: '/expenses',
       name: 'expenses',
       component: ExpenseView,
       meta: {
         title: 'Expenses Page',
         requiresAuth: true,
-       }
+      }
     },
     {
       path: '/admin',

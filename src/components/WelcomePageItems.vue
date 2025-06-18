@@ -27,7 +27,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-50">
+  <div class="flex items-center justify-center bg-gray-50">
     <div class="p-6 container">
       <h1 class="text-3xl font-bold text-center mb-6">Expense Dashboard</h1>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
