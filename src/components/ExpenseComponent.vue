@@ -65,7 +65,6 @@ function showSummary(expense) {
     summaryCategory.value = expense.category
 }
 
-
 async function deleteExpense(id) {
     if (!confirm('Are you sure you want to delete this expense?')) return
     loading.value = true
@@ -92,8 +91,6 @@ const totalAmount = computed(() => {
     return expenses.value.reduce((sum, expense) => sum + Number(expense.amount || 0), 0)
 })
 
-
-
 // Summary data
 const categorySummary = computed(() => {
     if (!summaryCategory.value) return null
@@ -110,9 +107,6 @@ const categorySummary = computed(() => {
         count: filtered.length,
     }
 })
-
-
-
 
 </script>
 
