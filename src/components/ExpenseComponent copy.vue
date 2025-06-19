@@ -16,7 +16,7 @@ const filters = reactive({ ...expenseStore.filters })
 const expenses = ref([])
 const pagination = ref({})
 const loading = ref(false)
-const currentYear = ref()
+
 const summaryCategory = ref(null)
 
 
@@ -43,9 +43,7 @@ function clearFilters() {
         min_amount: null,
         max_amount: null,
         year: currentYear,
-        year: '2025'
     })
- 
     fetchExpenses(1)
 }
 
@@ -85,9 +83,7 @@ watch(() => props.refreshKey, () => {
     fetchExpenses(pagination.value.current_page)
 })
 
-
 onMounted(() => {
-filters.year = '2025'
     fetchExpenses()
 })
 
@@ -112,7 +108,7 @@ const categorySummary = computed(() => {
         count: filtered.length,
     }
 
-    
+    const currentYear = new Date().getFullYear()
 
     const filters = reactive({
         ...expenseStore.filters,
@@ -136,17 +132,16 @@ const categorySummary = computed(() => {
             <input type="number" v-model.number="filters.max_amount" placeholder="Max Amount"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block 
                 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" min="0" step="0.01" />
- 
+
             <select v-model="filters.year" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 
                 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
                 dark:focus:ring-blue-500 dark:focus:border-blue-500">
-         
-                <option v-for="year in Array.from({ length: 10 }, (_, i) => new Date().getFullYear() - i)" :key="year" selected
+                  <option v-for="year in availableYears" :key="year" :value="year">{{ year }}</option>
+                <option v-for="year in Array.from({ length: 10 }, (_, i) => new Date().getFullYear() - i)" :key="year"
                     :value="year">
                     {{ year }}
                 </option>
-                <!-- <option v-for="year in availableYears" :key="year" :value="year" >{{ year }}</option> -->
-                         <option :value="null">All</option>
+                
              
             </select>
 
