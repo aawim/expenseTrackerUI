@@ -52,7 +52,7 @@ export const useAuthStore = defineStore('auth', {
                     }
 
                     // Redirect
-                    window.location.href = '/';
+                    window.location.href = '/expenses';
                 }
 
             } catch (err) {
