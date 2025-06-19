@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useUserStore } from '../stores/userStore'
-import EventModal from '../components/EventModal.vue'
+import { useUserStore } from '@/stores/userStore'
+import EventModal from '@/components/EventModal.vue'
 
 const userStore = useUserStore()
 //console.log(userStore.users)

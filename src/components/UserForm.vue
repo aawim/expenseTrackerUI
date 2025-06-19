@@ -1,3 +1,58 @@
+
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useRoleStore } from '@/stores/roleStore'
+import { useUserStore } from '@/stores/userStore'
+
+const props = defineProps({
+  user: Object,
+  editing: Boolean,
+})
+
+const emit = defineEmits(['saved', 'cancel'])
+
+const roleStore = useRoleStore()
+const userStore = useUserStore()
+
+const roles = ref([])
+const form = ref({
+  name: '',
+  email: '',
+  password: '',
+  role_id: '',
+})
+
+onMounted(async () => {
+  // Fetch roles
+  await roleStore.fetchRoles()
+  roles.value = roleStore.roles
+
+  // Set form data if editing
+  if (props.editing && props.user) {
+    form.value = {
+      name: props.user.name,
+      email: props.user.email,
+      password: '',
+      role_id: props.user.role_id || props.user.role?.id || '',
+    }
+  }
+})
+
+const save = async () => {
+  try {
+    if (props.editing) {
+      
+      await userStore.updateUser(props.user.id, form.value)
+    } else {
+      await userStore.createUser(form.value)
+    }
+    emit('saved')
+  } catch (error) {
+    console.error('Error saving user:', error)
+  }
+}
+</script>
+
 <template>
   <div class="relative">
     <h2 class="text-xl font-semibold mb-4">
@@ -67,56 +122,3 @@
   </div>
 </template>
 
-<script setup>
-import { ref, onMounted } from 'vue'
-import { useRoleStore } from '@/stores/roleStore'
-import { useUserStore } from '@/stores/userStore'
-
-const props = defineProps({
-  user: Object,
-  editing: Boolean,
-})
-
-const emit = defineEmits(['saved', 'cancel'])
-
-const roleStore = useRoleStore()
-const userStore = useUserStore()
-
-const roles = ref([])
-const form = ref({
-  name: '',
-  email: '',
-  password: '',
-  role_id: '',
-})
-
-onMounted(async () => {
-  // Fetch roles
-  await roleStore.fetchRoles()
-  roles.value = roleStore.roles
-
-  // Set form data if editing
-  if (props.editing && props.user) {
-    form.value = {
-      name: props.user.name,
-      email: props.user.email,
-      password: '',
-      role_id: props.user.role_id || props.user.role?.id || '',
-    }
-  }
-})
-
-const save = async () => {
-  try {
-    if (props.editing) {
-      
-      await userStore.updateUser(props.user.id, form.value)
-    } else {
-      await userStore.createUser(form.value)
-    }
-    emit('saved')
-  } catch (error) {
-    console.error('Error saving user:', error)
-  }
-}
-</script>

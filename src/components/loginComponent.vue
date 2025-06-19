@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { useAuthStore } from '../stores/authStore'
+import { useAuthStore } from '@/stores/authStore'
 
 const email = ref('')
 const password = ref('')
@@ -64,16 +64,42 @@ const handleLogin = async () => {
           <button type="submit" :disabled="isLoading"
             class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Login</button>
         </div>
+
+
         <div class="text-sm mt-5 ">
-          <router-link class="font-semibold text-indigo-600 hover:text-indigo-500 "
+
+          <router-link class="font-semibold text-indigo-600 hover:text-indigo-500 text-left"
             to="/register">Register</router-link>
+
+
+          <router-link class="font-semibold text-indigo-600 hover:text-indigo-500 ml-42" to="/forgot-password">
+            Forgot Password
+          </router-link>
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <p v-if="error" class="text-red-600 mb-4">{{ error }}</p>
       </form>
       <!-- <p v-if="error.value" class="mt-4 text-red-500">{{ error }}</p> -->
     </div>
     <router-link class="font-semibold text-indigo-600 hover:text-indigo-500 flex w-full justify-center py-12"
       to="/">Home</router-link>
+
+
   </div>
 
 

@@ -1,3 +1,41 @@
+
+<script setup>
+import { ref, computed, watch, onMounted } from 'vue'
+import { useRoleStore } from '@/stores/roleStore'
+import { usePermissionStore } from '@/stores/permissionStore'
+
+const roleStore = useRoleStore()
+const permissionStore = usePermissionStore()
+const emit = defineEmits(['close'])
+const form = ref({ name: '', permissions: [] })
+const editing = computed(() => !!roleStore.role?.id)
+
+watch(() => roleStore.role, (r) => {
+  if (r) {
+    form.value = {
+      name: r.name || '',
+      permissions: Array.isArray(r.permissions) ? r.permissions.map(p => p.id) : [],
+    }
+  }
+})
+
+onMounted(() => permissionStore.fetchPermissions())
+
+const permissions = computed(() => permissionStore.permissions)
+
+async function save() {
+
+  if (editing.value) {
+    await roleStore.updateRole(roleStore.role.id, form.value)
+  } else {
+    await roleStore.createRole(form.value)
+  }
+  roleStore.role = null
+  form.value = { name: '', permissions: [] }
+  emit('close')
+}
+</script>
+
 <template>
   <div class="bg-white shadow-md rounded-lg p-6 max-w-md mx-auto">
     <h3 class="text-xl font-semibold mb-4">
@@ -38,39 +76,3 @@
 </template>
 
 
-<script setup>
-import { ref, computed, watch, onMounted } from 'vue'
-import { useRoleStore } from '@/stores/roleStore'
-import { usePermissionStore } from '@/stores/permissionStore'
-
-const roleStore = useRoleStore()
-const permissionStore = usePermissionStore()
-const emit = defineEmits(['close'])
-const form = ref({ name: '', permissions: [] })
-const editing = computed(() => !!roleStore.role?.id)
-
-watch(() => roleStore.role, (r) => {
-  if (r) {
-    form.value = {
-      name: r.name || '',
-      permissions: Array.isArray(r.permissions) ? r.permissions.map(p => p.id) : [],
-    }
-  }
-})
-
-onMounted(() => permissionStore.fetchPermissions())
-
-const permissions = computed(() => permissionStore.permissions)
-
-async function save() {
-
-  if (editing.value) {
-    await roleStore.updateRole(roleStore.role.id, form.value)
-  } else {
-    await roleStore.createRole(form.value)
-  }
-  roleStore.role = null
-  form.value = { name: '', permissions: [] }
-  emit('close')
-}
-</script>
